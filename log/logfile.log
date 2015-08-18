@@ -1,0 +1,12 @@
+INFO:root:test /api/v1.0/tasks api
+INFO:werkzeug:127.0.0.1 - - [17/Aug/2015 23:18:04] "GET /api/v1.0/tasks HTTP/1.1" 200 -
+INFO:root:test /api/v1.0/tasks/id api
+INFO:werkzeug:127.0.0.1 - - [17/Aug/2015 23:18:07] "GET /api/v1.0/tasks/2 HTTP/1.1" 200 -
+INFO:root:test /api/v1.0/tasks api
+INFO:werkzeug:127.0.0.1 - - [17/Aug/2015 23:18:07] "HEAD /api/v1.0/tasks HTTP/1.1" 200 -
+INFO:root:test /api/v1.0/tasks api
+INFO:werkzeug:127.0.0.1 - - [17/Aug/2015 23:18:07] "GET /api/v1.0/tasks HTTP/1.1" 200 -
+INFO:root:test /api/v1.0/tasks/id api
+INFO:werkzeug:127.0.0.1 - - [17/Aug/2015 23:18:09] "HEAD /api/v1.0/tasks/2 HTTP/1.1" 200 -
+INFO:root:test /api/v1.0/tasks/id api
+INFO:werkzeug:127.0.0.1 - - [17/Aug/2015 23:18:09] "GET /api/v1.0/tasks/2 HTTP/1.1" 200 -
