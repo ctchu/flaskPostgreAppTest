@@ -20,4 +20,4 @@ except psycopg2.DatabaseError, e:
         print 'Error %s' % e    
         sys.exit(1)
         
-from app import views
+import views

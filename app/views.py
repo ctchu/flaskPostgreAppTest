@@ -7,11 +7,15 @@ Created on Wed Jul 29 21:12:42 2015
 
 from flask import render_template
 from flask import request, redirect
-from flask import jsonify, json
+from flask import jsonify
 from flask import make_response
 from flask import abort
 from flask import url_for
+
 from flask.ext.cors import cross_origin
+
+import sys
+#import copy
 import logging
 logging.basicConfig(filename='.\\log\\logfile.log', filemode='w', level=logging.INFO)
 
@@ -20,8 +24,7 @@ from app import con
 
 import psycopg2
 import psycopg2.extras
-import sys
-import copy
+from psycopg2.extensions import AsIs
 
 localTasks = [
     {
@@ -89,6 +92,47 @@ def getTableEntryById(category, targetId):
         print 'Error %s' % e    
         sys.exit(1)
     
+#===========================================
+#===========================================
+def addTableColumn(category, columns, typeString):
+    
+    executeString = "alter table {0} add column %s {1}".format(category, typeString)
+    ## e.g., "alter table Tasks add column %s char(40)"
+    ## columns = ['add1', 'add2']
+    
+    try:
+        cur = con.cursor(cursor_factory=psycopg2.extras.DictCursor)    
+        cur.execute(executeString)
+        
+        for c in columns:
+            cur.execute(executeString, (AsIs(c),))
+    
+        con.commit()
+             
+    except psycopg2.DatabaseError, e:
+        print 'Error %s' % e    
+        sys.exit(1)
+
+#===========================================
+#===========================================
+def dropTableColumn(category, columns):
+    
+    executeString = "alter table {0} drop column %s".format(category)
+    ## e.g., "alter table Tasks drop column %s"
+    
+    try:
+        cur = con.cursor(cursor_factory=psycopg2.extras.DictCursor)    
+        cur.execute(executeString)
+        
+        for c in columns:
+            cur.execute(executeString, (AsIs(c),))
+    
+        con.commit()
+             
+    except psycopg2.DatabaseError, e:
+        print 'Error %s' % e    
+        sys.exit(1)
+        
 #===========================================
 #===========================================
 @flaskApp.route('/')
