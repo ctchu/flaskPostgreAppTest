@@ -115,6 +115,29 @@ def addTableColumn(category, columns, typeString):
 
 #===========================================
 #===========================================
+def addTableColumnWithArrayType(category, columns):
+    
+    typeString = "float[]"
+    
+    executeString = "alter table {0} add column %s {1}".format(category, typeString)
+    
+    try:
+        cur = con.cursor(cursor_factory=psycopg2.extras.DictCursor)    
+        cur.execute(executeString)
+        
+        for c in columns:
+            cur.execute(executeString, (AsIs(c),))
+        
+        #query = "UPDATE Tasks SET add6 = ARRAY{0} WHERE id = 55".format(table['feature'])
+        
+        con.commit()
+             
+    except psycopg2.DatabaseError, e:
+        print 'Error %s' % e    
+        sys.exit(1)
+        
+#===========================================
+#===========================================
 def dropTableColumn(category, columns):
     
     executeString = "alter table {0} drop column %s".format(category)
